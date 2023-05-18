@@ -1,4 +1,4 @@
 package org.dummyapi.common;
 
-public interface Erors {
+public interface Errors {
 }
