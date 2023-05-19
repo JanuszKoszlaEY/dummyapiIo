@@ -36,7 +36,7 @@ public class RequestSpec {
 				.setBaseUri(URL)
 				.setBasePath("")
 				.addHeaders(COMMON_HEADERS)
-					.addHeader("app-id",APP_ID)
+				.addHeader("app-id",APP_ID)
 				.setContentType(ContentType.JSON);
 
 		return spec.build();
