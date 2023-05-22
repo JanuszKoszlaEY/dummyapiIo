@@ -19,5 +19,5 @@ public class PostDto {
     private String link;
     private List<String> tags;
     private String publishDate;
-//    private
+    private Object owner;
 }
