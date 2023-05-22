@@ -7,7 +7,6 @@ import org.dummyapi.dataModels.endpoints.User;
 import org.dummyapi.dataModels.requestBody.UserDto;
 
 import static io.restassured.RestAssured.given;
-
 public class UserRequest {
     public static Response createUser(UserDto body) {
         return given(RequestSpec.get().body(body), ResponseSpec.get())

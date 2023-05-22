@@ -1,7 +1,6 @@
 package org.dummyapi.testData;
 
 import org.dummyapi.dataModels.requestBody.CommentDto;
-import org.dummyapi.dataModels.requestBody.PostDto;
 
 public class CommentTestData {
     public static CommentDto commentPostData(Integer userId, Integer postId){

@@ -1,8 +1,8 @@
 package org.dummyapi.testData;
 
-import org.dummyapi.dataModels.requestBody.LocationDto;
+
 import org.dummyapi.dataModels.requestBody.PostDto;
-import org.dummyapi.dataModels.requestBody.PostDto;
+
 
 public class PostTestData {
 
