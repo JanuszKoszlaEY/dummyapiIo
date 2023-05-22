@@ -4,13 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 public class CommonListDto {
-    private Arrays data;
+    private List<Object> data;
     private int total;
     private int page;
     private int limit;
