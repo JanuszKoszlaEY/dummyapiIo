@@ -1,4 +1,4 @@
-package org.dummyapi.utilities;
+package org.dummyapi.configuration;
 
 public enum DummyApiProperties {
     API_BASE_URL("api.base.url"),

@@ -1,4 +1,4 @@
-package org.dummyapi.utilities;
+package org.dummyapi.configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;

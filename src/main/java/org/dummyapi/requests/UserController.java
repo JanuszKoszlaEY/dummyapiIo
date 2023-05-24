@@ -5,9 +5,8 @@ import io.restassured.config.RestAssuredConfig;
 import io.restassured.config.SSLConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.dummyapi.utilities.DummyApiProperties;
-import org.dummyapi.utilities.PropertiesManager;
+import org.dummyapi.configuration.DummyApiProperties;
+import org.dummyapi.configuration.PropertiesManager;
 import org.json.JSONObject;
 
 
