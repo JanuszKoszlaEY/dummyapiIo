@@ -8,5 +8,4 @@ public interface Errors {
     String RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND";
     String PATH_NOT_FOUND = "PATH_NOT_FOUND";
     String SERVER_ERROR = "SERVER_ERROR";
-
 }

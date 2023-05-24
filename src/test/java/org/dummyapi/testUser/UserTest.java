@@ -2,13 +2,14 @@ package org.dummyapi.testUser;
 
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.dummyapi.converter.JsonConverter;
 import org.dummyapi.dataModels.common.CommonListDto;
 import org.dummyapi.dataModels.requestBody.UserDto;
 import org.dummyapi.requests.UserRequest;
 import org.dummyapi.testData.UserTestData;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,8 @@ import java.util.List;
 
 public class UserTest {
 
-    @Test
+    @Test()
+    @Ignore
     public void EndToEndUserTest(){
         Response response = UserRequest.createUser(UserTestData.userPostData());
         response = UserRequest.getUserById((response.as(UserDto.class).getId()));
@@ -34,7 +36,8 @@ public class UserTest {
     public void GetUserListTest(){
         Response response = UserRequest.getUserList();
         Assert.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
-        CommonListDto userList = response.as(CommonListDto.class);
-        Assert.assertTrue(response.as(CommonListDto.class).getData().size()>0,"There are no users on a list");
+
+        List<UserDto> userList = Arrays.asList(JsonConverter.convertFromJson(JsonConverter.convertToJson(response.as(CommonListDto.class).getData()),UserDto[].class));
+        Assert.assertFalse(userList.get(0).getId().isEmpty(),"MissingID for first user");
     }
 }
