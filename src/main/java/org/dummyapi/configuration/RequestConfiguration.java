@@ -10,6 +10,10 @@ import io.restassured.specification.RequestSpecification;
 
 import static org.dummyapi.configuration.DummyApiProperties.API_BASE_URL;
 
+
+import java.util.Arrays;
+import java.util.List;
+
 public class RequestConfiguration {
 
     private RestAssuredConfig config;
@@ -44,7 +48,6 @@ public class RequestConfiguration {
             }
         }
     }
-
     public static RequestSpecification get() {
         RequestSpecBuilder requestCfg = new RequestSpecBuilder();
         return requestCfg.setBaseUri(API_BASE_URL.getValue()).setBasePath("").build();
