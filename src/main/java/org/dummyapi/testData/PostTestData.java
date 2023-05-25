@@ -6,7 +6,7 @@ import org.dummyapi.dataModels.requestBody.PostDto;
 
 public class PostTestData {
 
-    public static PostDto postPostData(Integer userId){
+    public static PostDto postPostData(String userId){
         return PostDto.builder()
                 .text("Text In Post")
                 .image("string url")

@@ -4,8 +4,11 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.dummyapi.converter.JsonConverter;
 import org.dummyapi.dataModels.common.CommonListDto;
+import org.dummyapi.dataModels.endpoints.User;
 import org.dummyapi.dataModels.requestBody.UserDto;
+import org.dummyapi.requests.PostRequest;
 import org.dummyapi.requests.UserRequest;
+import org.dummyapi.testData.PostTestData;
 import org.dummyapi.testData.UserTestData;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -21,7 +24,11 @@ public class UserTest {
     @Ignore
     public void EndToEndUserTest(){
         Response response = UserRequest.createUser(UserTestData.userPostData());
+        String id = response.as(UserDto.class).getId();
+        response = PostRequest.createPost(PostTestData.postPostData(id));
+
         response = UserRequest.getUserById((response.as(UserDto.class).getId()));
+
         Assert.assertFalse(response.getBody().as(UserDto.class).getId().isEmpty(),"Id for generated user is not found");
         response = UserRequest.updateUser(response.as(UserDto.class).getId(),UserTestData.userUpdateData());
         response = UserRequest.getUserById((response.as(UserDto.class).getId()));
