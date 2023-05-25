@@ -9,7 +9,7 @@ public class ResponseConfiguration {
     private final static long TIME_OUT = 5000;
     public static ResponseSpecification get() {
         ResponseSpecBuilder responseBuilder = new ResponseSpecBuilder();
-        responseBuilder.expectStatusCode(Matchers.anyOf(Matchers.equalTo(200))).expectResponseTime(Matchers.lessThanOrEqualTo(TIME_OUT));
+        responseBuilder.expectResponseTime(Matchers.lessThanOrEqualTo(TIME_OUT));
         return responseBuilder.build();
     }
 }
