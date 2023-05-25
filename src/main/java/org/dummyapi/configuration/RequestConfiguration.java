@@ -1,17 +1,14 @@
 package org.dummyapi.configuration;
 
 import io.restassured.RestAssured;
-import io.restassured.config.LogConfig;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.RestAssuredConfig;
-import io.restassured.config.SessionConfig;
 
-import io.restassured.filter.Filter;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.dummyapi.configuration.DummyApiProperties.API_BASE_URL;
 
 public class RequestConfiguration {
 
@@ -46,12 +43,10 @@ public class RequestConfiguration {
                 break;
             }
         }
-        RestAssured.baseURI = "http://dummyapi.io";
-        this.config = RestAssured.config()
-                .sessionConfig(new SessionConfig().sessionIdName("sessionId"));
     }
 
-    public Response get(String body) {
-        return RestAssured.with().config(this.config).body(body).get();
+    public static RequestSpecification get() {
+        RequestSpecBuilder requestCfg = new RequestSpecBuilder();
+        return requestCfg.setBaseUri(API_BASE_URL.getValue()).setBasePath("").build();
     }
 }
