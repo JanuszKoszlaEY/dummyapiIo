@@ -4,52 +4,25 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.RestAssuredConfig;
 
+import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 
-import static org.dummyapi.configuration.DummyApiProperties.API_BASE_URL;
-
-
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static org.dummyapi.configuration.DummyApiProperties.*;
 
 public class RequestConfiguration {
 
-    private RestAssuredConfig config;
-
-    private void setLogConfigToAllLogs() {
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-    }
-
-    private void setLogConfigToRequestLogsOnly() {
-        RestAssured.filters(new RequestLoggingFilter());
-    }
-
-    private void setLogConfigToNoLogs() {
-        RestAssured.filters();
-    }
-
-    enum ReqLogLevel {NONE, ALL, REQ}
-
-    public RequestConfiguration(ReqLogLevel logLevel) {
-        switch (logLevel) {
-            case ALL: {
-                setLogConfigToAllLogs();
-                break;
-            }
-            case NONE: {
-                setLogConfigToNoLogs();
-                break;
-            }
-            case REQ: {
-                setLogConfigToRequestLogsOnly();
-                break;
-            }
-        }
-    }
     public static RequestSpecification get() {
         RequestSpecBuilder requestCfg = new RequestSpecBuilder();
-        return requestCfg.setBaseUri(API_BASE_URL.getValue()).setBasePath("").build();
+        if (API_LOGLEVEL.getValue().equals("ALL")){
+            requestCfg.log(LogDetail.ALL).addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()));
+        }
+        return requestCfg.setBaseUri(API_BASE_URL.getValue()).
+                addHeaders(Map.of("app-id", API_KEY.getValue()))
+                        .setBasePath("").build();
     }
 }
