@@ -1,6 +1,6 @@
 package org.dummyapi.endpoints;
 
-public class UserEndpoints {
+public interface UserEndpoints {
 
     String user = "user";
     String userByID = "user/{id}";

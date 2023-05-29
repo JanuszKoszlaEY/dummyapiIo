@@ -1,6 +1,6 @@
 package org.dummyapi.endpoints;
 
-public class PostEndpoints {
+public interface PostEndpoints {
 
     String post = "post";
     String postByUser = "user/{id}/post";
