@@ -1,6 +1,6 @@
 package org.dummyapi.endpoints;
 
-public class TagEndpoints {
+public interface TagEndpoints {
 
     String tag = "tag";
 }

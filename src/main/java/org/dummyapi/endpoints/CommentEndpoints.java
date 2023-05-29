@@ -1,6 +1,6 @@
 package org.dummyapi.endpoints;
 
-public class CommentEndpoints {
+public interface CommentEndpoints {
 
     String comment = "comment";
     String commentByPost = "post/{id}/comment";
