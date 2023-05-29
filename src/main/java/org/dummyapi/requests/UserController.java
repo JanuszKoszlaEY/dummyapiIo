@@ -1,21 +1,17 @@
 package org.dummyapi.requests;
 
-import io.restassured.RestAssured;
-import io.restassured.config.RestAssuredConfig;
-import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
-import org.dummyapi.configuration.DummyApiProperties;
-import org.dummyapi.configuration.PropertiesManager;
+import org.dummyapi.configuration.RequestConfiguration;
+import org.dummyapi.configuration.ResponseConfiguration;
 import org.dummyapi.dataModels.UserDTO;
-import org.dummyapi.testData.UserTestData;
+import org.dummyapi.endpoints.UserEndpoints;
+
+import static io.restassured.RestAssured.given;
 
 
 public class UserController {
     public Response createUser(UserDTO userDTO) {
-        PropertiesManager.loadProperties();
-        String path = "/api/users";
-        String url = DummyApiProperties.API_BASE_URL.getValue() + path;
-        RestAssuredConfig config = RestAssured.config().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-        return RestAssured.given().config(config).body(userDTO).post(url);
+        return given(RequestConfiguration.get().body(userDTO), ResponseConfiguration.get())
+                .post(UserEndpoints.userCreate);
     }
 }
