@@ -7,7 +7,19 @@ import org.dummyapi.configuration.ResponseConfiguration;
 import org.dummyapi.dataModels.PostDto;
 import org.dummyapi.endpoints.PostEndpoints;
 
-public class PostReq {
+public class PostRequests {
+
+    public static Response createPost (PostDto postDto){
+
+        return RestAssured.given(RequestConfiguration.get().body(postDto), ResponseConfiguration.get())
+                .get(PostEndpoints.postCreate);
+    }
+
+    public static Response updatePost (String postID, String bodyRequest){
+
+        return RestAssured.given(RequestConfiguration.get().pathParam("id", postID).body(bodyRequest), ResponseConfiguration.get())
+                .put(PostEndpoints.postByID);
+    }
 
     public static Response getPost(){
 
@@ -25,18 +37,6 @@ public class PostReq {
 
         return RestAssured.given(RequestConfiguration.get().pathParam("id", tagID), ResponseConfiguration.get())
                 .get(PostEndpoints.postByTagID);
-    }
-
-    public static Response createPost (PostDto postDto){
-
-        return RestAssured.given(RequestConfiguration.get().body(postDto), ResponseConfiguration.get())
-                .get(PostEndpoints.postCreate);
-    }
-
-    public static Response updatePost (String postID, String bodyRequest){
-
-        return RestAssured.given(RequestConfiguration.get().pathParam("id", postID).body(bodyRequest), ResponseConfiguration.get())
-                .put(PostEndpoints.postByID);
     }
 
     public static Response deletePost (String postID){
