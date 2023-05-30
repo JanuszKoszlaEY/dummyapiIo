@@ -16,7 +16,7 @@ public class UserRequests {
     }
 
     public Response getUserById(String id) {
-        return given(RequestConfiguration.get().body(id), ResponseConfiguration.get())
+        return given(RequestConfiguration.get().pathParam("id", id), ResponseConfiguration.get())
                 .post(UserEndpoints.userByID);
     }
 
@@ -25,13 +25,13 @@ public class UserRequests {
                 .post(UserEndpoints.user);
     }
 
-    public Response updateUser(String id) {
-        return given(RequestConfiguration.get().body(id), ResponseConfiguration.get())
+    public Response updateUser(String id, UserDTO userDTO) {
+        return given(RequestConfiguration.get().pathParam("id", id).body(userDTO), ResponseConfiguration.get())
                 .put(UserEndpoints.userByID);
     }
 
     public Response deleteUser(String id) {
-        return given(RequestConfiguration.get().body(id), ResponseConfiguration.get())
+        return given(RequestConfiguration.get().pathParam("id", id), ResponseConfiguration.get())
                 .delete(UserEndpoints.userByID);
     }
 }
