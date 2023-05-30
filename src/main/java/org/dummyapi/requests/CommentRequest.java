@@ -7,28 +7,28 @@ import org.dummyapi.configuration.ResponseConfiguration;
 import org.dummyapi.dataModels.CommentDto;
 import org.dummyapi.endpoints.CommentEndpoints;
 
-public class ReqComment {
-    public static Response commentCreate (CommentDto commentCreate) {
+public class CommentRequest {
+    public static Response createComment (CommentDto commentCreate) {
         return RestAssured.given(RequestConfiguration.get().body(commentCreate), ResponseConfiguration.get())
                 .post(CommentEndpoints.commentCreate);
 
     }
-    public static Response comment (){
+    public static Response getCommentlist (){
         return RestAssured.given(RequestConfiguration.get(), ResponseConfiguration.get())
                 .get(CommentEndpoints.comment);
 
     }
-    public static Response commentByPost (String commentByPost) {
+    public static Response getCommentByPost (String commentByPost) {
         return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,commentByPost), ResponseConfiguration.get())
                 .get(CommentEndpoints.commentByPost);
 
     }
-    public static Response commentByUser (String commentByUser) {
+    public static Response getCommentByUser (String commentByUser) {
         return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,commentByUser), ResponseConfiguration.get())
                 .get(CommentEndpoints.commentByUser);
 
     }
-    public static Response commentDelete (String commentDelete) {
+    public static Response deleteComment (String commentDelete) {
         return RestAssured.given(RequestConfiguration.get().pathParams( "id", commentDelete), ResponseConfiguration.get())
                 .delete(CommentEndpoints.commentDelete);
 
