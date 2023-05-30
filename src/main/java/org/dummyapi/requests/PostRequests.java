@@ -15,9 +15,9 @@ public class PostRequests {
                 .get(PostEndpoints.postCreate);
     }
 
-    public static Response updatePost (String postID, String bodyRequest){
+    public static Response updatePost (String postID, PostDto postDto){
 
-        return RestAssured.given(RequestConfiguration.get().pathParam("id", postID).body(bodyRequest), ResponseConfiguration.get())
+        return RestAssured.given(RequestConfiguration.get().pathParam("id", postID).body(postDto), ResponseConfiguration.get())
                 .put(PostEndpoints.postByID);
     }
 
