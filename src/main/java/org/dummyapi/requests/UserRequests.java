@@ -17,12 +17,12 @@ public class UserRequests {
 
     public Response getUserById(String id) {
         return given(RequestConfiguration.get().pathParam("id", id), ResponseConfiguration.get())
-                .post(UserEndpoints.userByID);
+                .get(UserEndpoints.userByID);
     }
 
     public Response getUserList() {
         return given(RequestConfiguration.get(), ResponseConfiguration.get())
-                .post(UserEndpoints.user);
+                .get(UserEndpoints.user);
     }
 
     public Response updateUser(String id, UserDTO userDTO) {
