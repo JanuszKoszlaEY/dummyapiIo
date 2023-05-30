@@ -13,23 +13,23 @@ public class CommentRequest {
                 .post(CommentEndpoints.commentCreate);
 
     }
-    public static Response getCommentlist (){
+    public static Response getCommentList (){
         return RestAssured.given(RequestConfiguration.get(), ResponseConfiguration.get())
                 .get(CommentEndpoints.comment);
 
     }
-    public static Response getCommentByPost (String commentByPost) {
-        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,commentByPost), ResponseConfiguration.get())
+    public static Response getCommentByPost (String id) {
+        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,id), ResponseConfiguration.get())
                 .get(CommentEndpoints.commentByPost);
 
     }
-    public static Response getCommentByUser (String commentByUser) {
-        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,commentByUser), ResponseConfiguration.get())
+    public static Response getCommentByUser (String id) {
+        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,id), ResponseConfiguration.get())
                 .get(CommentEndpoints.commentByUser);
 
     }
-    public static Response deleteComment (String commentDelete) {
-        return RestAssured.given(RequestConfiguration.get().pathParams( "id", commentDelete), ResponseConfiguration.get())
+    public static Response deleteComment (String id) {
+        return RestAssured.given(RequestConfiguration.get().pathParams( "id", id), ResponseConfiguration.get())
                 .delete(CommentEndpoints.commentDelete);
 
     }
