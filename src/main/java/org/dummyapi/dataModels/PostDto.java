@@ -17,7 +17,7 @@ public class PostDto {
     private String image;
     private int likes;
     private String link;
-    private List<String> tags;
+    private List<TagDto> tags;
     private String publishDate;
-    private UserDTO owner;
+    private UserDto owner;
 }

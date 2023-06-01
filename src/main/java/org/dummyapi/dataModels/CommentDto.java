@@ -11,7 +11,7 @@ public class CommentDto {
 
     private String id;
     private String message;
-    private UserDTO owner;
+    private UserDto owner;
     private String publishDate;
     private String post;
 

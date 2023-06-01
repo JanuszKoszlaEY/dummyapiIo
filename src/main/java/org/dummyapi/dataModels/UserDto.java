@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserDTO {
+public class UserDto {
     private String id;
     private String title;
     private String firstName;
@@ -16,6 +16,6 @@ public class UserDTO {
     private String registeredDate;
     private String phone;
     private String picture;
-    private LocationDTO location;
+    private LocationDto location;
 
 }

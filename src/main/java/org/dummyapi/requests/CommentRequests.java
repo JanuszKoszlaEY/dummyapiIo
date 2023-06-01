@@ -18,18 +18,18 @@ public class CommentRequests {
                 .get(CommentEndpoints.comment);
 
     }
-    public static Response getCommentByPost (String id) {
-        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,id), ResponseConfiguration.get())
+    public static Response getCommentByPost (String postId) {
+        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,postId), ResponseConfiguration.get())
                 .get(CommentEndpoints.commentByPost);
 
     }
-    public static Response getCommentByUser (String id) {
-        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,id), ResponseConfiguration.get())
+    public static Response getCommentByUser (String userId) {
+        return RestAssured.given(RequestConfiguration.get().pathParams( "id" ,userId), ResponseConfiguration.get())
                 .get(CommentEndpoints.commentByUser);
 
     }
-    public static Response deleteComment (String id) {
-        return RestAssured.given(RequestConfiguration.get().pathParams( "id", id), ResponseConfiguration.get())
+    public static Response deleteComment (String commentId) {
+        return RestAssured.given(RequestConfiguration.get().pathParams( "id", commentId), ResponseConfiguration.get())
                 .delete(CommentEndpoints.commentDelete);
 
     }
