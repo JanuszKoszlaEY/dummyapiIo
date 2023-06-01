@@ -7,9 +7,9 @@ import org.dummyapi.configuration.ResponseConfiguration;
 import org.dummyapi.dataModels.CommentDto;
 import org.dummyapi.endpoints.CommentEndpoints;
 
-public class CommentRequest {
-    public static Response createComment (CommentDto commentCreate) {
-        return RestAssured.given(RequestConfiguration.get().body(commentCreate), ResponseConfiguration.get())
+public class CommentRequests {
+    public static Response createComment (CommentDto CommentDto) {
+        return RestAssured.given(RequestConfiguration.get().body(CommentDto), ResponseConfiguration.get())
                 .post(CommentEndpoints.commentCreate);
 
     }
