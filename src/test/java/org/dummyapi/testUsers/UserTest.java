@@ -1,17 +1,13 @@
 package org.dummyapi.testUsers;
 
-import com.google.gson.JsonParser;
-import io.restassured.RestAssured;
-import io.restassured.config.RestAssuredConfig;
-import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
 import org.dummyapi.asserions.UserAsertions;
-import org.dummyapi.configuration.PropertiesManager;
 import org.dummyapi.configuration.RequestConfiguration;
 import org.dummyapi.dataModels.UserDto;
 import org.dummyapi.endpoints.UserEndpoints;
 import org.dummyapi.requests.UserRequests;
 import org.dummyapi.testData.UserTestData;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -20,21 +16,23 @@ import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
 
 
 public class UserTest {
-    @BeforeTest
-    public void
+
+    private String testUserId = null;
+   @BeforeTest
+   public void createTestUser(){
+       useRelaxedHTTPSValidation();
+       Response response = UserRequests.createUser(UserTestData.getUserDeletableTestData());
+       testUserId = response.as(UserDto.class).getId();
+   }
    @Test
    public void createUsers(){
-        UserRequests userRequests = new UserRequests();
-       RestAssuredConfig config = RestAssured.config().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-        Response response = userRequests.createUser(UserTestData.getUserTestData());
+        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
         String id = response.as(UserDto.class).getId();
         UserAsertions.assertThatUserIsCreated(id);
     }
     @Test
     public void getUsers(){
-        useRelaxedHTTPSValidation();
-        UserRequests userRequests = new UserRequests();
-        Response response = userRequests.getUserList();
+        Response response = UserRequests.getUserList();
         UserAsertions.assertThatResponseCodeIs(response, 200);
     }
     @Test
@@ -47,6 +45,14 @@ public class UserTest {
     }
     @Test
     public void updateUser(){
+    Response response = UserRequests.updateUser(testUserId, UserTestData.updateUserTestData());
+    UserAsertions.assertThatUserGenderIsMale(testUserId);
+
+    }
+    @AfterTest
+    public void deleteTestUser(){
+        useRelaxedHTTPSValidation();
+        Response response = UserRequests.deleteUser(testUserId);
 
     }
 }
