@@ -22,9 +22,9 @@ public class RequestConfiguration {
             requestCfg.log(LogDetail.ALL).addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()));
         }
         return requestCfg
-                .setBaseUri(API_BASE_URL
-                        .getValue())
-                        .addHeaders(Map.of("app-id", API_KEY.getValue()))
-                        .setBasePath("").build();
+                .setRelaxedHTTPSValidation()
+                .setBaseUri(API_BASE_URL.getValue())
+                .addHeaders(Map.of("app-id", API_KEY.getValue()))
+                .setBasePath("").build();
     }
 }
