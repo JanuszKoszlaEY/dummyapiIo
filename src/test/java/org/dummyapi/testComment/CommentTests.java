@@ -37,7 +37,7 @@ public class CommentTests {
         response = PostRequests.createPost(PostTestData.getPostTestData());
         String idPost = response.as(PostDto.class).getId();
 
-        response = CommentRequests.createComment(CommentTestData.commentPostData());
+        response = CommentRequests.createComment(CommentTestData.commentPostData(idPost,idUser));
         String idComment = response.as(CommentDto.class).getId();
         CommentAsertions.assertThatResponseCodeIs(response, 200);
 
