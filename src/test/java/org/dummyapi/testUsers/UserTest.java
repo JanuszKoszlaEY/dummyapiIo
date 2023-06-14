@@ -20,7 +20,6 @@ public class UserTest {
     private String testUserId = null;
    @BeforeTest
    public void createTestUser(){
-       useRelaxedHTTPSValidation();
        Response response = UserRequests.createUser(UserTestData.getUserDeletableTestData());
        testUserId = response.as(UserDto.class).getId();
    }
@@ -47,11 +46,14 @@ public class UserTest {
     public void updateUser(){
     Response response = UserRequests.updateUser(testUserId, UserTestData.updateUserTestData());
     UserAsertions.assertThatUserGenderIsMale(testUserId);
-
+    }
+    @Test
+    public void deleteUser(){
+       Response response = UserRequests.deleteUser(testUserId);
+       UserAsertions.assertThatUserIsDeleted(testUserId)
     }
     @AfterTest
     public void deleteTestUser(){
-        useRelaxedHTTPSValidation();
         Response response = UserRequests.deleteUser(testUserId);
 
     }
