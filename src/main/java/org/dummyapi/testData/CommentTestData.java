@@ -4,17 +4,12 @@ import org.dummyapi.dataModels.CommentDto;
 import org.dummyapi.dataModels.UserDto;
 import org.dummyapi.dataModels.PostDto;
 public class CommentTestData {
-    public static CommentDto commentPostData(String userId, String postId) {
+    public static CommentDto commentPostData(UserDto userDto, PostDto PostDto) {
         return CommentDto.builder()
-                .message("Test 123 message!")
-                .owner(UserDto.builder()
-                        .id(userId)
-                        .build()
-                .post(PostDto.builder()
-                        .id(postId)
-                        .build()
+                .message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                .owner(userDto.getId())
+                .post(PostDto.getId())
                 .build();
-
     }
-}
 
+}
