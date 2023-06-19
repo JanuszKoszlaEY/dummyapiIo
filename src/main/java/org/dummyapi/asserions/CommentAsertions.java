@@ -2,6 +2,7 @@ package org.dummyapi.asserions;
 
 
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.dummyapi.requests.CommentRequests;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
@@ -10,9 +11,9 @@ public class CommentAsertions {
         response.then().statusCode(expectedValue);
     }
 
-    public static void assertGivenTextisLonger200Char(String id){
+    public static ValidatableResponse assertGivenTextisLonger200Char(String id){
         Response response = CommentRequests.getCommentByUser(id);
-        response.then().body("message.size()", lessThanOrEqualTo(200));
+        return response.then().body("data[0].message.size()", lessThanOrEqualTo(200));
     }
 
 }
