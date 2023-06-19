@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -14,7 +16,7 @@ public class PostDto {
     private String image;
     private int likes;
     private String link;
-    private TagDto tags;
+    private List<String> tags;
     private String publishDate;
-    private UserDto owner;
+    private Object owner;
 }

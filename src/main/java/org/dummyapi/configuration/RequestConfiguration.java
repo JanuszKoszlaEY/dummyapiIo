@@ -26,6 +26,8 @@ public class RequestConfiguration {
                 .setBaseUri(API_BASE_URL
                         .getValue())
                         .addHeaders(Map.of("app-id", API_KEY.getValue()))
+                        .addHeader("accept","application/json")
+                        .addHeader("Content-Type", "application/json")
                         .setBasePath("").build();
     }
 }

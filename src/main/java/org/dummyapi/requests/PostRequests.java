@@ -12,7 +12,7 @@ public class PostRequests {
     public static Response createPost (PostDto postDto){
 
         return RestAssured.given(RequestConfiguration.get().body(postDto), ResponseConfiguration.get())
-                .get(PostEndpoints.postCreate);
+                .post(PostEndpoints.postCreate);
     }
 
     public static Response updatePost (String postID, PostDto postDto){
@@ -25,6 +25,12 @@ public class PostRequests {
 
         return RestAssured.given(RequestConfiguration.get(), ResponseConfiguration.get())
                 .get(PostEndpoints.post);
+    }
+
+    public static Response getPostByID(String postID){
+
+        return RestAssured.given(RequestConfiguration.get().pathParam("id", postID), ResponseConfiguration.get())
+                .get(PostEndpoints.postByID);
     }
 
     public static Response getPostByUser(String userID){
