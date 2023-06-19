@@ -12,7 +12,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
 
 
 public class UserTest {
@@ -28,7 +27,10 @@ public class UserTest {
         Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
         String id = response.as(UserDto.class).getId();
         UserAsertions.assertThatUserIsCreated(id);
+        // clean environment by delete created user
+       UserRequests.deleteUser(id);
     }
+
     @Test
     public void getUsers(){
         Response response = UserRequests.getUserList();
@@ -50,7 +52,7 @@ public class UserTest {
     @Test
     public void deleteUser(){
        Response response = UserRequests.deleteUser(testUserId);
-       UserAsertions.assertThatUserIsDeleted(testUserId)
+       UserAsertions.assertThatUserIsDeleted(testUserId);
     }
     @AfterTest
     public void deleteTestUser(){
