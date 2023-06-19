@@ -88,14 +88,14 @@ public class CommentTests {
         useRelaxedHTTPSValidation();
         Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
         UserDto userDto = response.as(UserDto.class);
+        String UserID = response.as(UserDto.class).getId();
 
         response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
         PostDto PostDto = response.as(PostDto.class);
 
         response = CommentRequests.createComment(CommentTestData.commentPostData(userDto, PostDto));
         String idComment = response.as(CommentDto.class).getId();
-
-        CommentAsertions.assertGivenTextisLonger200Char(idComment);
+        CommentAsertions.assertGivenTextisLonger200Char(UserID);
 
         response = CommentRequests.deleteComment(idComment);
         response = UserRequests.deleteUser(userDto.getId());

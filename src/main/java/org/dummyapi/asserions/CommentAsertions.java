@@ -11,7 +11,7 @@ public class CommentAsertions {
     }
 
     public static void assertGivenTextisLonger200Char(String id){
-        Response response = CommentRequests.getCommentByPost(id);
+        Response response = CommentRequests.getCommentByUser(id);
         response.then().body("message.size()", lessThanOrEqualTo(200));
     }
 
