@@ -7,9 +7,11 @@ import java.util.Properties;
 public class PropertiesManager {
     private static final String PROPERTIES_FILE_PATH = "src/main/resources/config.properties";
     private static Properties properties;
-    static {loadProperties();
 
+    static {
+        loadProperties();
     }
+
     public static void loadProperties() {
         properties = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE_PATH)) {
