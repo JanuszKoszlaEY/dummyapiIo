@@ -8,96 +8,85 @@ import org.dummyapi.requests.PostRequests;
 import org.dummyapi.requests.UserRequests;
 import org.dummyapi.testData.PostTestData;
 import org.dummyapi.testData.UserTestData;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
 
 public class PostTests {
 
+    private String testPostID = null;
+    private UserDto userDto = null;
+
+    @BeforeTest
+    public void createTestUserForTests(){
+        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
+        userDto = response.as(UserDto.class);
+        System.out.println("User with ID: " + userDto.getId() + " has been created!");
+    }
+
     @Test
     public void testGetPostListPositive(){
-        useRelaxedHTTPSValidation();
         Response response = PostRequests.getPost();
-
         PostAssertions.assertGivenResponseStatusCode(response, 200);
     }
 
     @Test
     public void createTestPost(){
-        useRelaxedHTTPSValidation();
 
-        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
-        UserDto userDto = response.as(UserDto.class);
+        Response response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
+        testPostID = response.as(PostDto.class).getId();
+        PostAssertions.assertGivenPostIsCreated(testPostID);
 
-        response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
-        String postID = response.as(PostDto.class).getId();
-
-        PostAssertions.assertGivenPostIsCreated(postID);
-
-        response = UserRequests.deleteUser(userDto.getId());
-        response = PostRequests.deletePost(postID);
     }
 
     @Test
     public void checkIfTextHas50CharInTestPost(){
-        useRelaxedHTTPSValidation();
+        Response response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
+        testPostID = response.as(PostDto.class).getId();
+        PostAssertions.assertGivenTextisEqualorLessThan50Char(testPostID);
+    }
 
-        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
-        UserDto userDto = response.as(UserDto.class);
-
-        response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
-        String postID = response.as(PostDto.class).getId();
-
-        PostAssertions.assertGivenTextisEqualorLessThan50Char(postID);
-
-        response = UserRequests.deleteUser(userDto.getId());
-        response = PostRequests.deletePost(postID);
+    @Test
+    public void checkIfTextHasMoreThan50CharInTestPost(){
+        Response response = PostRequests.createPost(PostTestData.createIncorrectPostTestData(userDto));
+        testPostID = response.as(PostDto.class).getId();
+        PostAssertions.assertGivenTextisEqualorLessThan50Char(testPostID);
     }
 
     @Test
     public void getTestPostByID(){
-        useRelaxedHTTPSValidation();
+        Response response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
+        testPostID = response.as(PostDto.class).getId();
 
-        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
-        UserDto userDto = response.as(UserDto.class);
-
-        response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
-        String postID = response.as(PostDto.class).getId();
-
-        response = PostRequests.getPostByID(postID);
+        response = PostRequests.getPostByID(testPostID);
         PostAssertions.assertGivenResponseStatusCode(response, 200);
-
-        response = UserRequests.deleteUser(userDto.getId());
-        response = PostRequests.deletePost(postID);
     }
 
     @Test
     public void deleteTestPost(){
-        useRelaxedHTTPSValidation();
-        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
-        UserDto userDto = response.as(UserDto.class);
+        Response response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
+        testPostID = response.as(PostDto.class).getId();
 
-        response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
-        String postID = response.as(PostDto.class).getId();
-
-        response = PostRequests.deletePost(postID);
+        response = PostRequests.deletePost(testPostID);
         PostAssertions.assertGivenResponseStatusCode(response, 200);
     }
 
     @Test
     public void updateCreatedTestPost(){
-        useRelaxedHTTPSValidation();
-        Response response = UserRequests.createUser(UserTestData.getUserDefaultTestData());
-        UserDto userDto = response.as(UserDto.class);
+        Response response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
+        testPostID = response.as(PostDto.class).getId();
 
-        response = PostRequests.createPost(PostTestData.createPostTestData(userDto));
-        String postID = response.as(PostDto.class).getId();
-
-        response = PostRequests.updatePost(postID, PostTestData.updatePostTestData(userDto));
+        response = PostRequests.updatePost(testPostID, PostTestData.updatePostTestData(userDto));
         PostAssertions.assertGivenResponseStatusCode(response, 200);
-
-        response = UserRequests.deleteUser(userDto.getId());
-        response = PostRequests.deletePost(postID);
     }
 
+    @AfterTest
+    public void cleanAfterTests(){
+        UserRequests.deleteUser(userDto.getId());
+        PostRequests.deletePost(testPostID);
+        System.out.println("User with ID: " + userDto.getId() + " has been deleted!");
+        System.out.println("Post with ID: " + testPostID + " has been deleted!");
+    }
 }

@@ -36,6 +36,20 @@ public class PostTestData {
                 .build();
     }
 
+    public static PostDto createIncorrectPostTestData(UserDto userDto){
+        List<String> testTags = new ArrayList<>();
+        testTags.add("firstTag");
+        testTags.add("secondTag");
+        testTags.add("thirdTag");
+
+        return PostDto.builder()
+                .text("rVI7ELsxVxvr7ysWV6qyuos1FGcjQmMRxgYXV6isLI2OTzICneg")
+                .image("https://img.dummyapi.io/photo-1564694202779-bc908c327862.jpg")
+                .likes(0)
+                .tags(testTags)
+                .owner(userDto.getId())
+                .build();
+    }
 
     public static PostDto updatePostTestData(UserDto userDto){
 
